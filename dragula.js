@@ -39,6 +39,7 @@ function dragula (initialContainers, options) {
   if (o.direction === void 0) { o.direction = 'vertical'; }
   if (o.ignoreInputTextSelection === void 0) { o.ignoreInputTextSelection = true; }
   if (o.mirrorContainer === void 0) { o.mirrorContainer = doc.body; }
+  if (o.staticColumns === void 0) { o.staticColumns = []; }
 
   var drake = emitter({
     containers: o.containers,
@@ -396,6 +397,11 @@ function dragula (initialContainers, options) {
         parent.removeChild(item);
       }
       return;
+    }
+    for (var i = 0; i < options.staticColumns.length; i++) {
+        if (item.parentElement.childNodes[options.staticColumns[i]] == mover) {
+            return;
+        }
     }
     if (
       (reference === null && changed) ||
